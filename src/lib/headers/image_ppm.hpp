@@ -13,8 +13,7 @@
 class PPMRenderer {
 
 public:
-    PPMRenderer(int, int, std::string);
-    ~PPMRenderer();
+    PPMRenderer(int, int);
 
     int GetImageWidth();
     int GetImageHeight();
@@ -22,12 +21,10 @@ public:
     void SetImageWidth(int);
     void SetImageHeight(int);
 
-    void render();
+    void render(std::string);
 
 private:
     int imageWidth, imageHeight;
-
-    std::ofstream file;
 };
 
 

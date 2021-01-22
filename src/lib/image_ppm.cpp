@@ -5,16 +5,10 @@
 #include "image_ppm.hpp"
 
 
-PPMRenderer::PPMRenderer(int height, int width, std::string fileName) {
+PPMRenderer::PPMRenderer(int height, int width) {
 
     imageHeight = height;
     imageWidth = width;
-
-    file.open(fileName);
-}
-
-PPMRenderer::~PPMRenderer() {
-    file.close();
 }
 
 int PPMRenderer::GetImageHeight() {
@@ -33,7 +27,9 @@ void PPMRenderer::SetImageWidth(int width) {
     imageWidth = width;
 }
 
-void PPMRenderer::render() {
+void PPMRenderer::render(std::string filePath) {
+
+    std::ofstream file(filePath);
 
     file << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
@@ -50,4 +46,6 @@ void PPMRenderer::render() {
             file << r << " " << g << " " << b << "\n";
         }
     }
+
+    file.close();
 }

@@ -4,8 +4,8 @@
 
 int main() {
 
-    PPMRenderer renderer(256, 256, "./image_2.ppm");
-    renderer.render();
+    PPMRenderer* renderer = new PPMRenderer(256, 256);
+    renderer->render("./image_1.ppm");
 
     return 0;
 }
