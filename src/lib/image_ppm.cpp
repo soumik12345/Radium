@@ -27,6 +27,13 @@ void PPMRenderer::SetImageWidth(int width) {
     imageWidth = width;
 }
 
+void PPMRenderer::writeColor(std::ostream &outputStream, ColorRGB pixelColor) {
+
+    outputStream << static_cast<int>(255.999 * pixelColor.getX()) << ' '
+                 << static_cast<int>(255.999 * pixelColor.getY()) << ' '
+                 << static_cast<int>(255.999 * pixelColor.getZ()) << '\n';
+}
+
 void PPMRenderer::render(std::string filePath) {
 
     std::ofstream file(filePath);
@@ -39,11 +46,12 @@ void PPMRenderer::render(std::string filePath) {
 
         for(int i = 0; i < imageWidth; i++) {
 
-            int r = static_cast<int>(255.999 * double(i) / (imageWidth - 1));
-            int g = static_cast<int>(255.999 * double(j) / (imageHeight - 1));
-            int b = static_cast<int>(255.999 * 0.25);
+            ColorRGB pixelColor(
+                    double(i) / (imageWidth - 1),
+                    double(j) / (imageHeight - 1),
+                    0.25);
 
-            file << r << " " << g << " " << b << "\n";
+            writeColor(file, pixelColor);
         }
     }
 

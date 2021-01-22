@@ -9,6 +9,8 @@
 #include <fstream>
 #include <vector>
 
+#include "Vector3.hpp"
+
 
 class PPMRenderer {
 
@@ -20,6 +22,8 @@ public:
 
     void SetImageWidth(int);
     void SetImageHeight(int);
+
+    void writeColor(std::ostream &, ColorRGB);
 
     virtual void render(std::string);
 
