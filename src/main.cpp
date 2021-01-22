@@ -3,6 +3,9 @@
 #include "image_ppm.hpp"
 
 int main() {
-    CreatePPMImage(256, 256, "./image.ppm");
+
+    PPMRenderer renderer(256, 256, "./image_2.ppm");
+    renderer.render();
+
     return 0;
 }

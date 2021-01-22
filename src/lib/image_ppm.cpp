@@ -5,9 +5,35 @@
 #include "image_ppm.hpp"
 
 
-void CreatePPMImage(int imageHeight, int imageWidth, std::string filePath) {
+PPMRenderer::PPMRenderer(int height, int width, std::string fileName) {
 
-    std::ofstream file(filePath);
+    imageHeight = height;
+    imageWidth = width;
+
+    file.open(fileName);
+}
+
+PPMRenderer::~PPMRenderer() {
+    file.close();
+}
+
+int PPMRenderer::GetImageHeight() {
+    return imageHeight;
+}
+
+int PPMRenderer::GetImageWidth() {
+    return imageWidth;
+}
+
+void PPMRenderer::SetImageHeight(int height) {
+    imageHeight = height;
+}
+
+void PPMRenderer::SetImageWidth(int width) {
+    imageWidth = width;
+}
+
+void PPMRenderer::render() {
 
     file << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
 
@@ -24,6 +50,4 @@ void CreatePPMImage(int imageHeight, int imageWidth, std::string filePath) {
             file << r << " " << g << " " << b << "\n";
         }
     }
-
-    file.close();
 }
