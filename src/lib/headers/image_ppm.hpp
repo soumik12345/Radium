@@ -21,9 +21,9 @@ public:
     void SetImageWidth(int);
     void SetImageHeight(int);
 
-    void render(std::string);
+    virtual void render(std::string);
 
-private:
+protected:
     int imageWidth, imageHeight;
 };
 
