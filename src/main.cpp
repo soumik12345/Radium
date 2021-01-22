@@ -20,11 +20,12 @@ public:
 
             for(int i = 0; i < imageWidth; i++) {
 
-                int r = static_cast<int>(255.999 * double(i) / (imageWidth - 1));
-                int g = static_cast<int>(255.999 * double(j) / (imageHeight - 1));
-                int b = static_cast<int>(255.999 * 0.75);
+                ColorRGB pixelColor(
+                        double(i) / (imageWidth - 1),
+                        double(j) / (imageHeight - 1),
+                        0.75);
 
-                file << r << " " << g << " " << b << "\n";
+                writeColor(file, pixelColor);
             }
         }
 
@@ -35,11 +36,11 @@ public:
 
 int main() {
 
-//    PPMRenderer* renderer = new PPMRenderer(256, 256);
-//    renderer->render("./image_1.ppm");
+    PPMRenderer* renderer1 = new PPMRenderer(256, 256);
+    renderer1->render("./image_1.ppm");
 
-    MyRenderer* renderer = new MyRenderer(256, 256);
-    renderer->render("./image_2.ppm");
+    MyRenderer* renderer2 = new MyRenderer(256, 256);
+    renderer2->render("./image_2.ppm");
 
     return 0;
 }
