@@ -1,8 +1,8 @@
 #include <iostream>
 
-#include "test.hpp"
+#include "image_ppm.hpp"
 
 int main() {
-    test();
+    CreatePPMImage(256, 256, "./image.ppm");
     return 0;
 }
