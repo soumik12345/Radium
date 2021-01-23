@@ -5,9 +5,10 @@
 #include "Renderer.hpp"
 
 
-PPMRenderer::PPMRenderer(Image image) {
+PPMRenderer::PPMRenderer(Image* image) {
 
-    this->image = image;
+    this->image.SetImageHeight(image->imageHeight);
+    this->image.SetImageWidth(image->imageWidth);
 }
 
 int PPMRenderer::GetImageHeight() {

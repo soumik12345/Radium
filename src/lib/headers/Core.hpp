@@ -23,6 +23,14 @@ public:
         this->imageHeight = static_cast<int>(this->imageWidth / aspectRatio);
     }
 
+    void SetImageWidth(int imageWidth) {
+        this->imageWidth = imageWidth;
+    }
+
+    void SetImageHeight(int imageHeight) {
+        this->imageHeight = imageHeight;
+    }
+
     int imageWidth, imageHeight;
 };
 

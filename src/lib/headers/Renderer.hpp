@@ -16,7 +16,7 @@
 class PPMRenderer {
 
 public:
-    PPMRenderer(Image);
+    PPMRenderer(Image*);
 
     int GetImageWidth();
     int GetImageHeight();

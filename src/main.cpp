@@ -6,7 +6,7 @@
 class MyRenderer: public PPMRenderer {
 
 public:
-    MyRenderer(Image image): PPMRenderer(image) {}
+    MyRenderer(Image* image): PPMRenderer(image) {}
 
     void render(std::string filePath) {
 
@@ -36,11 +36,11 @@ public:
 
 int main() {
 
-    Image image1(16.0, 9.0, 400);
+    Image* image1 = new Image(16.0, 9.0, 400);
     PPMRenderer* renderer1 = new PPMRenderer(image1);
     renderer1->render("./image_1.ppm");
 
-    Image image2(16.0, 9.0, 400);
+    Image* image2 = new Image(16.0, 9.0, 400);
     MyRenderer* renderer2 = new MyRenderer(image2);
     renderer2->render("./image_2.ppm");
 
