@@ -19,7 +19,6 @@ public:
 
     Point3 at(double);
 
-private:
     Point3 origin;
     Vector3 direction;
 

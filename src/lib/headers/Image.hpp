@@ -2,8 +2,8 @@
 // Created by Soumik Rakshit on 23/01/21.
 //
 
-#ifndef RAY_TRACER_CORE_HPP
-#define RAY_TRACER_CORE_HPP
+#ifndef RAY_TRACER_IMAGE_HPP
+#define RAY_TRACER_IMAGE_HPP
 
 
 class Image {
@@ -35,4 +35,4 @@ public:
 };
 
 
-#endif //RAY_TRACER_CORE_HPP
+#endif //RAY_TRACER_IMAGE_HPP

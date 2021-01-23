@@ -9,24 +9,28 @@
 #include <fstream>
 #include <vector>
 
-#include "Core.hpp"
+#include "Image.hpp"
 #include "Vector3.hpp"
+#include "Camera.hpp"
+#include "Ray.h"
 
 
 class PPMRenderer {
 
 public:
-    PPMRenderer(Image*);
+    PPMRenderer(Image*, Camera*);
 
     int GetImageWidth();
     int GetImageHeight();
 
-    void writeColor(std::ostream &, ColorRGB);
+    virtual ColorRGB GetRayColor(Ray*);
 
-    virtual void render(std::string);
+    void writeColor(std::ostream &, ColorRGB);
+    void render(std::string);
 
 protected:
     Image image;
+    Camera camera;
 };
 
 

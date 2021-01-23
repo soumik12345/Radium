@@ -5,10 +5,14 @@
 #include "Renderer.hpp"
 
 
-PPMRenderer::PPMRenderer(Image* image) {
+PPMRenderer::PPMRenderer(Image* image, Camera* camera) {
 
     this->image.SetImageHeight(image->imageHeight);
     this->image.SetImageWidth(image->imageWidth);
+    this->camera.SetOrigin();
+    this->camera.SetHorizontal(camera->horizontal);
+    this->camera.SetVertical(camera->vertical);
+    this->camera.SetLowerLeftCorner(camera->lowerLeftCorner);
 }
 
 int PPMRenderer::GetImageHeight() {
@@ -17,6 +21,14 @@ int PPMRenderer::GetImageHeight() {
 
 int PPMRenderer::GetImageWidth() {
     return this->image.imageWidth;
+}
+
+ColorRGB PPMRenderer::GetRayColor(Ray* ray) {
+
+    Vector3 unitDirection = GetUnitVector(ray->GetDirection());
+    auto t = 0.5 * (unitDirection.getY() + 1.0);
+    ColorRGB rayColor = (1.0 - t) * ColorRGB(1.0, 1.0, 1.0) + t * ColorRGB(0.5, 0.7, 1.0);
+    return rayColor;
 }
 
 void PPMRenderer::writeColor(std::ostream &outputStream, ColorRGB pixelColor) {
@@ -38,11 +50,14 @@ void PPMRenderer::render(std::string filePath) {
 
         for(int i = 0; i < this->GetImageWidth(); i++) {
 
-            ColorRGB pixelColor(
-                    double(i) / (this->GetImageWidth() - 1),
-                    double(j) / (this->GetImageHeight() - 1),
-                    0.25);
+            auto u = double(i) / (this->GetImageWidth() - 1);
+            auto v = double(j) / (this->GetImageHeight() - 1);
 
+            Ray* ray = new Ray(
+                    camera.origin,
+                    camera.lowerLeftCorner + u * camera.horizontal + v * camera.vertical - camera.origin);
+
+            ColorRGB pixelColor = GetRayColor(ray);
             writeColor(file, pixelColor);
         }
     }
