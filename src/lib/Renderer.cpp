@@ -2,29 +2,20 @@
 // Created by Soumik Rakshit on 22/01/21.
 //
 
-#include "image_ppm.hpp"
+#include "Renderer.hpp"
 
 
-PPMRenderer::PPMRenderer(int height, int width) {
+PPMRenderer::PPMRenderer(Image image) {
 
-    imageHeight = height;
-    imageWidth = width;
+    this->image = image;
 }
 
 int PPMRenderer::GetImageHeight() {
-    return imageHeight;
+    return this->image.imageHeight;
 }
 
 int PPMRenderer::GetImageWidth() {
-    return imageWidth;
-}
-
-void PPMRenderer::SetImageHeight(int height) {
-    imageHeight = height;
-}
-
-void PPMRenderer::SetImageWidth(int width) {
-    imageWidth = width;
+    return this->image.imageWidth;
 }
 
 void PPMRenderer::writeColor(std::ostream &outputStream, ColorRGB pixelColor) {
@@ -38,17 +29,17 @@ void PPMRenderer::render(std::string filePath) {
 
     std::ofstream file(filePath);
 
-    file << "P3\n" << imageWidth << ' ' << imageHeight << "\n255\n";
+    file << "P3\n" << this->GetImageWidth() << ' ' << this->GetImageHeight() << "\n255\n";
 
-    for(int j = imageHeight - 1; j >= 0; j--) {
+    for(int j = this->GetImageHeight() - 1; j >= 0; j--) {
 
         std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
 
-        for(int i = 0; i < imageWidth; i++) {
+        for(int i = 0; i < this->GetImageWidth(); i++) {
 
             ColorRGB pixelColor(
-                    double(i) / (imageWidth - 1),
-                    double(j) / (imageHeight - 1),
+                    double(i) / (this->GetImageWidth() - 1),
+                    double(j) / (this->GetImageHeight() - 1),
                     0.25);
 
             writeColor(file, pixelColor);
