@@ -41,10 +41,10 @@ public:
     }
 
     double length() const {
-        return std::sqrt(length_squared());
+        return std::sqrt(LengthSquared());
     }
 
-    double length_squared() const {
+    double LengthSquared() const {
         return elements[0] * elements[0] + elements[1] * elements[1] + elements[2] * elements[2];
     }
 

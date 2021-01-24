@@ -32,14 +32,14 @@ public:
 
     double Hit(Ray* ray) {
         Vector3 originToCenter = ray->GetOrigin() - this->center;
-        auto a = DotProduct(ray->GetDirection(), ray->GetDirection());
-        auto b = 2.0 * DotProduct(originToCenter, ray->GetDirection());
-        auto c = DotProduct(originToCenter, originToCenter) - this->radius * this->radius;
-        auto discriminant = b * b - 4 * a * c;
+        auto a = ray->GetDirection().LengthSquared();
+        auto half_b = DotProduct(originToCenter, ray->GetDirection());
+        auto c = originToCenter.LengthSquared() - radius * radius;
+        auto discriminant = half_b * half_b - a * c;
         if (discriminant < 0)
             return -1.0;
         else
-            return (-b - std::sqrt(discriminant) ) / (2.0 * a);
+            return (-half_b - std::sqrt(discriminant) ) / a;
     }
 
     Point3 center;
