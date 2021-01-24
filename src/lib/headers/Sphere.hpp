@@ -30,13 +30,16 @@ public:
         this->radius = sphere.radius;
     }
 
-    bool Hit(Ray* ray) {
+    double Hit(Ray* ray) {
         Vector3 originToCenter = ray->GetOrigin() - this->center;
         auto a = DotProduct(ray->GetDirection(), ray->GetDirection());
         auto b = 2.0 * DotProduct(originToCenter, ray->GetDirection());
         auto c = DotProduct(originToCenter, originToCenter) - this->radius * this->radius;
         auto discriminant = b * b - 4 * a * c;
-        return (discriminant > 0);
+        if (discriminant < 0)
+            return -1.0;
+        else
+            return (-b - std::sqrt(discriminant) ) / (2.0 * a);
     }
 
     Point3 center;

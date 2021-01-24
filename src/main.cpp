@@ -10,11 +10,13 @@ public:
 
     ColorRGB GetRayColor(Ray* ray) {
 
-        if(this->sphere.Hit(ray)) {
-            return ColorRGB(0, 1, 0);
+        auto t = this->sphere.Hit(ray);
+        if (t > 0.0) {
+            Vector3 n = GetUnitVector(ray->at(t) - Vector3(0,0,-1));
+            return 0.5 * ColorRGB(n.getX() + 1, n.getY() + 1, n.getZ() + 1);
         }
         Vector3 unitDirection = GetUnitVector(ray->GetDirection());
-        auto t = 0.5 * (unitDirection.getX() + 1.0);
+        t = 0.5 * (unitDirection.getX() + 1.0);
         ColorRGB rayColor = (1.0 - t) * ColorRGB(1.0, 1.0, 1.0) + t * ColorRGB(0, 0, 0.7);
         return rayColor;
     }
