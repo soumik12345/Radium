@@ -2,7 +2,7 @@
 // Created by Soumik Rakshit on 23/01/21.
 //
 
-#include "Ray.h"
+#include "Ray.hpp"
 
 
 Ray::Ray(const Point3 &origin, const Vector3 &direction) {

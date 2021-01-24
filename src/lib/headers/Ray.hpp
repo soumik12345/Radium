@@ -2,8 +2,8 @@
 // Created by Soumik Rakshit on 23/01/21.
 //
 
-#ifndef RAY_TRACER_RAY_H
-#define RAY_TRACER_RAY_H
+#ifndef RAY_TRACER_RAY_HPP
+#define RAY_TRACER_RAY_HPP
 
 #include "Vector3.hpp"
 
@@ -25,4 +25,4 @@ public:
 };
 
 
-#endif //RAY_TRACER_RAY_H
+#endif //RAY_TRACER_RAY_HPP

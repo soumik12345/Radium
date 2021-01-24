@@ -5,14 +5,11 @@
 #include "Renderer.hpp"
 
 
-PPMRenderer::PPMRenderer(Image* image, Camera* camera) {
+PPMRenderer::PPMRenderer(Image image, Camera camera, Sphere sphere) {
 
-    this->image.SetImageHeight(image->imageHeight);
-    this->image.SetImageWidth(image->imageWidth);
-    this->camera.SetOrigin();
-    this->camera.SetHorizontal(camera->horizontal);
-    this->camera.SetVertical(camera->vertical);
-    this->camera.SetLowerLeftCorner(camera->lowerLeftCorner);
+    this->image.Set(image);
+    this->camera.Set(camera);
+    this->sphere.Set(sphere);
 }
 
 int PPMRenderer::GetImageHeight() {
@@ -25,6 +22,9 @@ int PPMRenderer::GetImageWidth() {
 
 ColorRGB PPMRenderer::GetRayColor(Ray* ray) {
 
+    if(this->sphere.Hit(ray)) {
+        return ColorRGB(1, 0, 0);
+    }
     Vector3 unitDirection = GetUnitVector(ray->GetDirection());
     auto t = 0.5 * (unitDirection.getY() + 1.0);
     ColorRGB rayColor = (1.0 - t) * ColorRGB(1.0, 1.0, 1.0) + t * ColorRGB(0.5, 0.7, 1.0);

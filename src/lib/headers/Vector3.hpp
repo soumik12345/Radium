@@ -93,13 +93,13 @@ inline Vector3 operator/(Vector3 v, double t) {
     return (1/t) * v;
 }
 
-inline double dot(const Vector3 &u, const Vector3 &v) {
+inline double DotProduct(const Vector3 &u, const Vector3 &v) {
     return u.elements[0] * v.elements[0]
            + u.elements[1] * v.elements[1]
            + u.elements[2] * v.elements[2];
 }
 
-inline Vector3 cross(const Vector3 &u, const Vector3 &v) {
+inline Vector3 CrossProduct(const Vector3 &u, const Vector3 &v) {
     return Vector3(
             u.elements[1] * v.elements[2] - u.elements[2] * v.elements[1],
             u.elements[2] * v.elements[0] - u.elements[0] * v.elements[2],
