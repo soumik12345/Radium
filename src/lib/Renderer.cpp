@@ -22,11 +22,13 @@ int PPMRenderer::GetImageWidth() {
 
 ColorRGB PPMRenderer::GetRayColor(Ray* ray) {
 
-    if(this->sphere.Hit(ray)) {
-        return ColorRGB(1, 0, 0);
+    auto t = this->sphere.Hit(ray);
+    if (t > 0.0) {
+        Vector3 n = GetUnitVector(ray->at(t) - this->sphere.center);
+        return 0.5 * ColorRGB(n.getX() + 1, n.getY() + 1, n.getZ() + 1);
     }
     Vector3 unitDirection = GetUnitVector(ray->GetDirection());
-    auto t = 0.5 * (unitDirection.getY() + 1.0);
+    t = 0.5 * (unitDirection.getY() + 1.0);
     ColorRGB rayColor = (1.0 - t) * ColorRGB(1.0, 1.0, 1.0) + t * ColorRGB(0.5, 0.7, 1.0);
     return rayColor;
 }
