@@ -55,6 +55,13 @@ public:
         this->lowerLeftCorner = lowerLeftCorner;
     }
 
+    void Set(Camera camera) {
+        this->origin = camera.origin;
+        this->horizontal = camera.horizontal;
+        this->vertical = camera.vertical;
+        this->lowerLeftCorner = camera.lowerLeftCorner;
+    }
+
     Point3 origin;
     Vector3 horizontal, vertical, lowerLeftCorner;
 

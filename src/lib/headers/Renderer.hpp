@@ -12,13 +12,14 @@
 #include "Image.hpp"
 #include "Vector3.hpp"
 #include "Camera.hpp"
-#include "Ray.h"
+#include "Ray.hpp"
+#include "Sphere.hpp"
 
 
 class PPMRenderer {
 
 public:
-    PPMRenderer(Image*, Camera*);
+    PPMRenderer(Image, Camera, Sphere);
 
     int GetImageWidth();
     int GetImageHeight();
@@ -31,6 +32,7 @@ public:
 protected:
     Image image;
     Camera camera;
+    Sphere sphere;
 };
 
 
