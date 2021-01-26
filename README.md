@@ -1,4 +1,6 @@
-# Ray Tracer
+# Radium
+
+A simple bare-bones Ray Tracing Engine written in C++14. Frames rendered by Radium are saved in PPM format.
 
 ## Simple Ray-Traced Sphere
 

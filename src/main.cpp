@@ -1,6 +1,6 @@
 #include <iostream>
 
-#include "Renderer.hpp"
+#include "Radium.hpp"
 
 
 class MyRenderer: public PPMRenderer {
