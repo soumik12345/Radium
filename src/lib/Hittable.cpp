@@ -5,7 +5,7 @@
 #include "Hittable.hpp"
 
 
-bool HittableList::Hit(Ray *ray, double tMin, double tMax, HitRecord &hitRecord) const {
+bool HittableList::Hit(Ray ray, double tMin, double tMax, HitRecord &hitRecord) const {
 
     HitRecord tempRecords;
     bool hitAnything = false;

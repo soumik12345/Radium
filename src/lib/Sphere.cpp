@@ -5,11 +5,11 @@
 #include "Sphere.hpp"
 
 
-bool Sphere::Hit(Ray* ray, double tMin, double tMax, HitRecord& hitRecord) const {
+bool Sphere::Hit(Ray ray, double tMin, double tMax, HitRecord& hitRecord) const {
 
-    Vector3 originToCenter = ray->GetOrigin() - this->center;
-    auto a = ray->GetDirection().LengthSquared();
-    auto half_b = DotProduct(originToCenter, ray->GetDirection());
+    Vector3 originToCenter = ray.GetOrigin() - this->center;
+    auto a = ray.GetDirection().LengthSquared();
+    auto half_b = DotProduct(originToCenter, ray.GetDirection());
     auto c = originToCenter.LengthSquared() - this->radius * this->radius;
 
     auto discriminant = half_b * half_b - a * c;
@@ -25,7 +25,7 @@ bool Sphere::Hit(Ray* ray, double tMin, double tMax, HitRecord& hitRecord) const
     }
 
     hitRecord.t = root;
-    hitRecord.point = ray->at(hitRecord.t);
+    hitRecord.point = ray.at(hitRecord.t);
     Vector3 outwardNormal = (hitRecord.point - this->center) / this->radius;
     hitRecord.SetFaceNormal(ray, outwardNormal);
 

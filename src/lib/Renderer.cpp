@@ -19,26 +19,35 @@ int PPMRenderer::GetImageWidth() {
     return this->image.imageWidth;
 }
 
-ColorRGB PPMRenderer::GetRayColor(Ray* ray, HittableList world) {
+ColorRGB PPMRenderer::GetRayColor(Ray ray, HittableList world) {
 
     HitRecord hitRecord;
     if (world.Hit(ray, 0, Infinity, hitRecord)) {
         return 0.5 * (hitRecord.normal + ColorRGB(1, 1, 1));
     }
-    Vector3 unitDirection = GetUnitVector(ray->GetDirection());
+    Vector3 unitDirection = GetUnitVector(ray.GetDirection());
     auto t = 0.5 * (unitDirection.getY() + 1.0);
     ColorRGB rayColor = (1.0 - t) * ColorRGB(1.0, 1.0, 1.0) + t * ColorRGB(0.5, 0.7, 1.0);
     return rayColor;
 }
 
-void PPMRenderer::writeColor(std::ostream &outputStream, ColorRGB pixelColor) {
+void PPMRenderer::writeColor(std::ostream &outputStream, ColorRGB pixelColor, int samplesPerPixel) {
 
-    outputStream << static_cast<int>(255.999 * pixelColor.getX()) << ' '
-                 << static_cast<int>(255.999 * pixelColor.getY()) << ' '
-                 << static_cast<int>(255.999 * pixelColor.getZ()) << '\n';
+    auto r = pixelColor.getX();
+    auto g = pixelColor.getY();
+    auto b = pixelColor.getZ();
+
+    auto scale = 1.0 / samplesPerPixel;
+    r *= scale;
+    g *= scale;
+    b *= scale;
+
+    outputStream << static_cast<int>(256 * Clamp(r, 0.0, 0.999)) << ' '
+                 << static_cast<int>(256 * Clamp(g, 0.0, 0.999)) << ' '
+                 << static_cast<int>(256 * Clamp(b, 0.0, 0.999)) << '\n';
 }
 
-void PPMRenderer::render(HittableList world, std::string filePath) {
+void PPMRenderer::render(HittableList world, int samplesPerPixel, std::string filePath) {
 
     std::ofstream file(filePath);
 
@@ -50,15 +59,19 @@ void PPMRenderer::render(HittableList world, std::string filePath) {
 
         for(int i = 0; i < this->GetImageWidth(); i++) {
 
-            auto u = double(i) / (this->GetImageWidth() - 1);
-            auto v = double(j) / (this->GetImageHeight() - 1);
+            ColorRGB pixelColor(0, 0, 0);
 
-            Ray* ray = new Ray(
-                    camera.origin,
-                    camera.lowerLeftCorner + u * camera.horizontal + v * camera.vertical - camera.origin);
+            for (int s = 0; s < samplesPerPixel; s++) {
 
-            ColorRGB pixelColor = GetRayColor(ray, world);
-            writeColor(file, pixelColor);
+                auto u = (i + GetRandomNumber()) / (this->GetImageWidth() - 1);
+                auto v = (j + GetRandomNumber()) / (this->GetImageHeight() - 1);
+
+                Ray ray = this->camera.GetRay(u, v);
+
+                pixelColor += this->GetRayColor(ray, world);
+            }
+
+            writeColor(file, pixelColor, samplesPerPixel);
         }
     }
 

@@ -18,8 +18,8 @@ struct HitRecord {
     double t;
     bool frontFace;
 
-    inline void SetFaceNormal(Ray* ray, Vector3 outwardNormal) {
-        frontFace = DotProduct(ray->GetDirection(), outwardNormal) < 0;
+    inline void SetFaceNormal(Ray ray, Vector3 outwardNormal) {
+        frontFace = DotProduct(ray.GetDirection(), outwardNormal) < 0;
         normal = frontFace ? outwardNormal : -outwardNormal;
     }
 };
@@ -28,7 +28,7 @@ struct HitRecord {
 class Hittable {
 
 public:
-    virtual bool Hit(Ray* ray, double tMin, double tMax, HitRecord& hitRecord) const = 0;
+    virtual bool Hit(Ray ray, double tMin, double tMax, HitRecord& hitRecord) const = 0;
 };
 
 
@@ -43,7 +43,7 @@ public:
 
     void clear() { this->objects.clear(); }
 
-    virtual bool Hit(Ray* ray, double tMin, double tMax, HitRecord& hitRecord) const override;
+    virtual bool Hit(Ray ray, double tMin, double tMax, HitRecord& hitRecord) const override;
 
     void Set(HittableList hittableList) { this->objects = hittableList.objects; }
 
