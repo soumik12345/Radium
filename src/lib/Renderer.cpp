@@ -5,11 +5,10 @@
 #include "Renderer.hpp"
 
 
-PPMRenderer::PPMRenderer(Image image, Camera camera, Sphere sphere) {
+PPMRenderer::PPMRenderer(Image image, Camera camera) {
 
     this->image.Set(image);
     this->camera.Set(camera);
-    this->sphere.Set(sphere);
 }
 
 int PPMRenderer::GetImageHeight() {
@@ -20,15 +19,14 @@ int PPMRenderer::GetImageWidth() {
     return this->image.imageWidth;
 }
 
-ColorRGB PPMRenderer::GetRayColor(Ray* ray) {
+ColorRGB PPMRenderer::GetRayColor(Ray* ray, HittableList world) {
 
-    auto t = this->sphere.Hit(ray);
-    if (t > 0.0) {
-        Vector3 n = GetUnitVector(ray->at(t) - this->sphere.center);
-        return 0.5 * ColorRGB(n.getX() + 1, n.getY() + 1, n.getZ() + 1);
+    HitRecord hitRecord;
+    if (world.Hit(ray, 0, Infinity, hitRecord)) {
+        return 0.5 * (hitRecord.normal + ColorRGB(1, 1, 1));
     }
     Vector3 unitDirection = GetUnitVector(ray->GetDirection());
-    t = 0.5 * (unitDirection.getY() + 1.0);
+    auto t = 0.5 * (unitDirection.getY() + 1.0);
     ColorRGB rayColor = (1.0 - t) * ColorRGB(1.0, 1.0, 1.0) + t * ColorRGB(0.5, 0.7, 1.0);
     return rayColor;
 }
@@ -40,7 +38,7 @@ void PPMRenderer::writeColor(std::ostream &outputStream, ColorRGB pixelColor) {
                  << static_cast<int>(255.999 * pixelColor.getZ()) << '\n';
 }
 
-void PPMRenderer::render(std::string filePath) {
+void PPMRenderer::render(HittableList world, std::string filePath) {
 
     std::ofstream file(filePath);
 
@@ -59,7 +57,7 @@ void PPMRenderer::render(std::string filePath) {
                     camera.origin,
                     camera.lowerLeftCorner + u * camera.horizontal + v * camera.vertical - camera.origin);
 
-            ColorRGB pixelColor = GetRayColor(ray);
+            ColorRGB pixelColor = GetRayColor(ray, world);
             writeColor(file, pixelColor);
         }
     }

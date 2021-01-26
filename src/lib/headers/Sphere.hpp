@@ -8,9 +8,10 @@
 
 #include "Vector3.hpp"
 #include "Ray.hpp"
+#include "Hittable.hpp"
 
 
-class Sphere {
+class Sphere: public Hittable {
 
 public:
 
@@ -30,17 +31,7 @@ public:
         this->radius = sphere.radius;
     }
 
-    double Hit(Ray* ray) {
-        Vector3 originToCenter = ray->GetOrigin() - this->center;
-        auto a = ray->GetDirection().LengthSquared();
-        auto half_b = DotProduct(originToCenter, ray->GetDirection());
-        auto c = originToCenter.LengthSquared() - radius * radius;
-        auto discriminant = half_b * half_b - a * c;
-        if (discriminant < 0)
-            return -1.0;
-        else
-            return (-half_b - std::sqrt(discriminant) ) / a;
-    }
+    virtual bool Hit(Ray* ray, double tMin, double tMax, HitRecord& hitRecord) const override;
 
     Point3 center;
     double radius;
