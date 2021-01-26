@@ -52,3 +52,20 @@ A simple bare-bones Ray Tracing Engine written in C++14. Frames rendered by Radi
         <td><img src="assets/image_6.png"></td>
     </tbody>
 </table>
+
+## Antialiasing
+
+<table>
+    <thead>
+        <td>
+            Demo 1
+        </td>
+        <td>
+            Demo 2
+        </td>
+    </thead>
+    <tbody>
+        <td><img src="assets/image_7.png"></td>
+        <td><img src="assets/image_8.png"></td>
+    </tbody>
+</table>
