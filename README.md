@@ -33,3 +33,20 @@
         <td><img src="assets/image_4.png"></td>
     </tbody>
 </table>
+
+## World as a List of Multiple Hittables
+
+<table>
+    <thead>
+        <td>
+            Demo 1
+        </td>
+        <td>
+            Demo 2
+        </td>
+    </thead>
+    <tbody>
+        <td><img src="assets/image_5.png"></td>
+        <td><img src="assets/image_6.png"></td>
+    </tbody>
+</table>

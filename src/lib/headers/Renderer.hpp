@@ -14,25 +14,26 @@
 #include "Camera.hpp"
 #include "Ray.hpp"
 #include "Sphere.hpp"
+#include "Hittable.hpp"
+#include "utils.hpp"
 
 
 class PPMRenderer {
 
 public:
-    PPMRenderer(Image, Camera, Sphere);
+    PPMRenderer(Image, Camera);
 
     int GetImageWidth();
     int GetImageHeight();
 
-    virtual ColorRGB GetRayColor(Ray*);
+    virtual ColorRGB GetRayColor(Ray*, HittableList);
 
     void writeColor(std::ostream &, ColorRGB);
-    void render(std::string);
+    void render(HittableList, std::string);
 
 protected:
     Image image;
     Camera camera;
-    Sphere sphere;
 };
 
 
