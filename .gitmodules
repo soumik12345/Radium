@@ -1,0 +1,3 @@
+[submodule "src/lib/headers/tqdm"]
+	path = src/lib/headers/tqdm
+	url = https://github.com/aminnj/cpptqdm

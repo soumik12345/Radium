@@ -53,9 +53,11 @@ void PPMRenderer::render(HittableList world, int samplesPerPixel, std::string fi
 
     file << "P3\n" << this->GetImageWidth() << ' ' << this->GetImageHeight() << "\n255\n";
 
+    tqdm progressBar;
+
     for(int j = this->GetImageHeight() - 1; j >= 0; j--) {
 
-        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
+        progressBar.progress(this->GetImageHeight() - j, this->GetImageHeight());
 
         for(int i = 0; i < this->GetImageWidth(); i++) {
 

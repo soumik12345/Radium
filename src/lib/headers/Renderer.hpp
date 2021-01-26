@@ -17,6 +17,8 @@
 #include "Hittable.hpp"
 #include "utils.hpp"
 
+#include "tqdm/tqdm.h"
+
 
 class PPMRenderer {
 
