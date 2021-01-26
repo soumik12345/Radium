@@ -31,7 +31,7 @@ public:
         this->radius = sphere.radius;
     }
 
-    virtual bool Hit(Ray* ray, double tMin, double tMax, HitRecord& hitRecord) const override;
+    virtual bool Hit(Ray ray, double tMin, double tMax, HitRecord& hitRecord) const override;
 
     Point3 center;
     double radius;

@@ -7,6 +7,7 @@
 
 
 #include "Vector3.hpp"
+#include "Ray.hpp"
 
 
 class Camera {
@@ -60,6 +61,12 @@ public:
         this->horizontal = camera.horizontal;
         this->vertical = camera.vertical;
         this->lowerLeftCorner = camera.lowerLeftCorner;
+    }
+
+    Ray GetRay(double u, double v) const {
+        return Ray(
+                this->origin,
+                this->lowerLeftCorner + u * this->horizontal + v * this->vertical - this->origin);
     }
 
     Point3 origin;
