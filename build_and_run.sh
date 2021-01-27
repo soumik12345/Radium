@@ -16,6 +16,13 @@ if [ -f "$FILE" ]; then
     clear
     ./radium
     cd ../
+    DIRECTORY=./dump
+    if [ -d "$DIRECTORY" ]; then
+        rm -rf ./dump/*
+    else
+        mkdir ./dump
+    fi
+    mv ./build/*.ppm ./dump
     rm -rf build
     printf "\n\n\n${GREEN}Compilation Successful!!!\n"
 else

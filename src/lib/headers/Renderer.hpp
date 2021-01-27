@@ -28,10 +28,10 @@ public:
     int GetImageWidth();
     int GetImageHeight();
 
-    virtual ColorRGB GetRayColor(Ray, HittableList);
+    virtual ColorRGB GetRayColor(Ray, HittableList, int);
 
     void writeColor(std::ostream &, ColorRGB, int);
-    void render(HittableList, int, std::string);
+    void render(HittableList, int, int, std::string);
 
 protected:
     Image image;

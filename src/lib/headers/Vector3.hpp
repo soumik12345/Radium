@@ -8,6 +8,8 @@
 #include <iostream>
 #include <cmath>
 
+#include "utils.hpp"
+
 class Vector3 {
 
 public:
@@ -108,6 +110,27 @@ inline Vector3 CrossProduct(const Vector3 &u, const Vector3 &v) {
 
 inline Vector3 GetUnitVector(Vector3 v) {
     return v / v.length();
+}
+
+inline Vector3 GetRandomVector3() {
+    return Vector3(GetRandomNumber(), GetRandomNumber(), GetRandomNumber());
+}
+
+inline Vector3 GetRandomVector3(double min, double max) {
+
+    return Vector3(
+            GetRandomNumber(min, max),
+            GetRandomNumber(min, max),
+            GetRandomNumber(min, max));
+}
+
+inline Vector3 RandomVectorInUnitSphere() {
+    while (true) {
+        auto p = GetRandomVector3(-1, 1);
+        if (p.LengthSquared() >= 1)
+            continue;
+        return p;
+    }
 }
 
 

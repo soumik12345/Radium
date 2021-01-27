@@ -27,8 +27,10 @@ inline double GetRandomNumber(int min, int max) { return min + (max - min) * Get
 
 inline double Clamp(double x, double min, double max) {
 
-    if (x < min) return min;
-    if (x > max) return max;
+    if (x < min)
+        return min;
+    if (x > max)
+        return max;
     return x;
 }
 
