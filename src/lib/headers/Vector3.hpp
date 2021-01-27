@@ -133,5 +133,9 @@ inline Vector3 RandomVectorInUnitSphere() {
     }
 }
 
+inline Vector3 GetRandomUnitVector3() {
+    return GetUnitVector(RandomVectorInUnitSphere());
+}
+
 
 #endif //RAY_TRACER_VECTOR3_HPP

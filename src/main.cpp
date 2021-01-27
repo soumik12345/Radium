@@ -15,8 +15,8 @@ public:
         if (depth <= 0)
             return ColorRGB(0, 0, 0);
 
-        if (world.Hit(ray, 0, Infinity, hitRecord)) {
-            Point3 target = hitRecord.point + hitRecord.normal + RandomVectorInUnitSphere();
+        if (world.Hit(ray, 0.001, Infinity, hitRecord)) {
+            Point3 target = hitRecord.point + hitRecord.normal + GetRandomUnitVector3();
             return 0.5 * this->GetRayColor(
                     Ray(hitRecord.point, target - hitRecord.point),
                     world, depth - 1);
