@@ -23,7 +23,6 @@ if [ -f "$FILE" ]; then
         mkdir ./dump
     fi
     mv ./build/*.ppm ./dump
-    rm -rf build
     printf "\n\n\n${GREEN}Compilation Successful!!!\n"
 else
     printf "\n\n\n${RED}Compilation Failure!!!\n"
