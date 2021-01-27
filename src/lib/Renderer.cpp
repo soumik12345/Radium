@@ -19,11 +19,18 @@ int PPMRenderer::GetImageWidth() {
     return this->image.imageWidth;
 }
 
-ColorRGB PPMRenderer::GetRayColor(Ray ray, HittableList world) {
+ColorRGB PPMRenderer::GetRayColor(Ray ray, HittableList world, int depth) {
 
     HitRecord hitRecord;
-    if (world.Hit(ray, 0, Infinity, hitRecord)) {
-        return 0.5 * (hitRecord.normal + ColorRGB(1, 1, 1));
+
+    if (depth <= 0)
+        return ColorRGB(0, 0, 0);
+
+    if (world.Hit(ray, 0.001, Infinity, hitRecord)) {
+        Point3 target = hitRecord.point + hitRecord.normal + GetRandomUnitVector3();
+        return 0.5 * this->GetRayColor(
+                Ray(hitRecord.point, target - hitRecord.point),
+                world, depth - 1);
     }
     Vector3 unitDirection = GetUnitVector(ray.GetDirection());
     auto t = 0.5 * (unitDirection.getY() + 1.0);
@@ -38,24 +45,26 @@ void PPMRenderer::writeColor(std::ostream &outputStream, ColorRGB pixelColor, in
     auto b = pixelColor.getZ();
 
     auto scale = 1.0 / samplesPerPixel;
-    r *= scale;
-    g *= scale;
-    b *= scale;
+    r = std::sqrt(scale * r);
+    g = std::sqrt(scale * g);
+    b = std::sqrt(scale * b);
 
     outputStream << static_cast<int>(256 * Clamp(r, 0.0, 0.999)) << ' '
                  << static_cast<int>(256 * Clamp(g, 0.0, 0.999)) << ' '
                  << static_cast<int>(256 * Clamp(b, 0.0, 0.999)) << '\n';
 }
 
-void PPMRenderer::render(HittableList world, int samplesPerPixel, std::string filePath) {
+void PPMRenderer::render(HittableList world, int samplesPerPixel, int maxDepth, std::string filePath) {
 
     std::ofstream file(filePath);
 
     file << "P3\n" << this->GetImageWidth() << ' ' << this->GetImageHeight() << "\n255\n";
 
+    tqdm progressBar;
+
     for(int j = this->GetImageHeight() - 1; j >= 0; j--) {
 
-        std::cerr << "\rScanlines remaining: " << j << ' ' << std::flush;
+        progressBar.progress(this->GetImageHeight() - j, this->GetImageHeight());
 
         for(int i = 0; i < this->GetImageWidth(); i++) {
 
@@ -68,7 +77,7 @@ void PPMRenderer::render(HittableList world, int samplesPerPixel, std::string fi
 
                 Ray ray = this->camera.GetRay(u, v);
 
-                pixelColor += this->GetRayColor(ray, world);
+                pixelColor += this->GetRayColor(ray, world, maxDepth);
             }
 
             writeColor(file, pixelColor, samplesPerPixel);
