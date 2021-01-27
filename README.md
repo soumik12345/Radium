@@ -1,76 +1,18 @@
 # Radium
 
-A simple bare-bones Ray Tracing Engine written in C++14. Frames rendered by Radium are saved in PPM format.
+Radium is a simple bare-bones Ray Tracing Engine written in C++ that runs on the CPU. Frames rendered by Radium are saved in PPM format.
 
-## Simple Ray-Traced Sphere
+## Instructions
 
-<table>
-    <thead>
-        <td>
-            Demo 1
-        </td>
-        <td>
-            Demo 2
-        </td>
-    </thead>
-    <tbody>
-        <td><img src="assets/image_1.png"></td>
-        <td><img src="assets/image_2.png"></td>
-    </tbody>
-</table>
+- `git clone --recursive https://github.com/soumik12345/Radium`
 
-## Shading with Surface Normals
+- Make sure you have CMake installed for your system.
 
-<table>
-    <thead>
-        <td>
-            Demo 1
-        </td>
-        <td>
-            Demo 2
-        </td>
-    </thead>
-    <tbody>
-        <td><img src="assets/image_3.png"></td>
-        <td><img src="assets/image_4.png"></td>
-    </tbody>
-</table>
+- `sh ./build_and_run.sh`
 
-## World as a List of Multiple Hittables
+## Demos
 
-<table>
-    <thead>
-        <td>
-            Demo 1
-        </td>
-        <td>
-            Demo 2
-        </td>
-    </thead>
-    <tbody>
-        <td><img src="assets/image_5.png"></td>
-        <td><img src="assets/image_6.png"></td>
-    </tbody>
-</table>
-
-## Antialiasing
-
-<table>
-    <thead>
-        <td>
-            Demo 1
-        </td>
-        <td>
-            Demo 2
-        </td>
-    </thead>
-    <tbody>
-        <td><img src="assets/image_7.png"></td>
-        <td><img src="assets/image_8.png"></td>
-    </tbody>
-</table>
-
-## Simple Diffuse Sphere
+### Simple Diffuse Sphere
 
 <table>
     <thead>
@@ -87,7 +29,7 @@ A simple bare-bones Ray Tracing Engine written in C++14. Frames rendered by Radi
     </tbody>
 </table>
 
-## Accurate Rendering of Lambertian Sphere
+### Accurate Rendering of Lambertian Sphere
 
 <table>
     <thead>
