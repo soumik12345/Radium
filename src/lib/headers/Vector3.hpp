@@ -138,4 +138,13 @@ inline Vector3 GetRandomUnitVector3() {
 }
 
 
+inline Vector3 RandomVectorInHemisphere(const Vector3& normal) {
+    Vector3 unitSphere = RandomVectorInUnitSphere();
+    if (DotProduct(unitSphere, normal) > 0.0)
+        return unitSphere;
+    else
+        return -unitSphere;
+}
+
+
 #endif //RAY_TRACER_VECTOR3_HPP
