@@ -26,7 +26,7 @@ ColorRGB PPMRenderer::GetRayColor(Ray ray, HittableList world, int depth) {
     if (depth <= 0)
         return ColorRGB(0, 0, 0);
 
-    if (world.Hit(ray, 0, Infinity, hitRecord)) {
+    if (world.Hit(ray, 0.001, Infinity, hitRecord)) {
         Point3 target = hitRecord.point + hitRecord.normal + RandomVectorInUnitSphere();
         return 0.5 * this->GetRayColor(
                 Ray(hitRecord.point, target - hitRecord.point),
