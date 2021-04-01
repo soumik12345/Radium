@@ -19,6 +19,12 @@ private:
 
 public:
 
+    double getRadius() { return radius; }
+    Vector3 getPosition() { return position; }
+    Vector3 getEmission() { return emission; }
+    Vector3 getColor() { return color; }
+    SurfaceReflectionType getMaterial() { return material; }
+
     Sphere(double, Vector3, Vector3, Vector3, SurfaceReflectionType);
 
     double intersect(const Ray& ray) const;
