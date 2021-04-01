@@ -5,7 +5,7 @@ mkdir build
 cd build
 
 cmake ../
-make
+make CC="time g++"
 
 FILE=./radium
 RED='\033[0;31m'
