@@ -9,6 +9,7 @@
 #include "Sphere.h"
 #include "Core.h"
 #include "Ray.h"
+#include "tqdm/tqdm.h"
 
 #include <vector>
 #include <cstdlib>
@@ -46,7 +47,7 @@ public:
 
     Vector3 radiance(const Ray&, int, unsigned short *);
 
-    void render();
+    void render(bool);
 
 };
 

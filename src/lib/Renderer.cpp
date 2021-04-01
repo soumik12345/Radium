@@ -77,15 +77,20 @@ Vector3 Renderer::radiance(const Ray &ray, int depth, unsigned short *seed) {
             radiance(reflectedRay, depth, seed) * Re + radiance(Ray(x, tDirection), depth, seed) * Tr);
 }
 
-void Renderer::render() {
+void Renderer::render(bool enableProgressBar) {
     samplesPerPixel = samplesPerPixel / 4;
     Ray camera(cameraPosition, cameraDirection.normalize());
     Vector3 cx = Vector3(frameWidth * .5135 / frameHeight, 0, 0);
     Vector3 r;
     Vector3 cy = (cx % camera.getDirection()).normalize() * .5135;
     Vector3 *c=new Vector3[frameWidth * frameHeight];
+    tqdm progressBar;
+    printf("Rendering Scene...\n");
     for (int y = 0; y < frameHeight; y++) {
-        fprintf(stderr, "\rRendering Scene %5.2f%%", 100. * y / (frameHeight - 1));
+        if (enableProgressBar)
+            progressBar.progress(frameHeight, frameHeight - y);
+        else
+            fprintf(stderr, "\rProgress -> %5.2f%%", 100. * y / (frameHeight - 1));
         unsigned short seedY = (unsigned short) y * (unsigned short) y * (unsigned short) y;
         for (unsigned short x = 0, seed[3] = {0, 0, seedY}; x < frameWidth; x++) {
             for (int sy = 0, i = (frameHeight - y - 1) * frameWidth + x; sy < 2; sy++) {

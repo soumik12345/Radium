@@ -27,7 +27,7 @@ int main() {
     renderer.addObject(
             Sphere(600, Vector3(50, 681.6 - .27, 81.6), Vector3(12, 12, 12), Vector3(), DIFFUSE));
 
-    renderer.render();
+    renderer.render(false);
 
     return 0;
 }
