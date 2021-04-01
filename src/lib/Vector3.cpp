@@ -51,7 +51,3 @@ Vector3 Vector3::normalize() {
 double Vector3::dotProduct(const Vector3 &other) const {
     return x * other.x + y * other.y + z * other.z;
 }
-
-void Vector3::display() const {
-    printf("(%d, %d, %d)", x, y, z);
-}
