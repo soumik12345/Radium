@@ -25,6 +25,17 @@ public:
 
     void addObject(Sphere hittableObject);
 
+    bool intersect(const Ray &ray, double &t, int &objectId) {
+        double n = hittableObjects.size(), d;
+        double infinity = t = 1e20;
+        for(int i = int(n); i-- ; )
+            if ((d = hittableObjects.at(i).intersect(ray)) && d < t) {
+                t = d;
+                objectId = i;
+            }
+        return t < infinity;
+    }
+
     Vector3 radiance(const Ray&, int, unsigned short *);
 
 };
