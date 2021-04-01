@@ -4,6 +4,22 @@
 
 #include "Renderer.h"
 
+
+Renderer::Renderer(int frameWidth, int frameHeight, int samplesPerPixel):
+    frameWidth(frameWidth), frameHeight(frameHeight), samplesPerPixel(samplesPerPixel) {
+
+    cameraPosition = Vector3();
+    cameraDirection = Vector3();
+}
+
+void Renderer::setCameraPosition(double x, double y, double z) {
+    cameraPosition = Vector3(x, y, z);
+}
+
+void Renderer::setCameraDirection(double x, double y, double z) {
+    cameraDirection = Vector3(x, y, z);
+}
+
 void Renderer::addObject(Sphere hittableObject) {
     hittableObjects.push_back(hittableObject);
 }
@@ -59,4 +75,39 @@ Vector3 Renderer::radiance(const Ray &ray, int depth, unsigned short *seed) {
     return hittableObject.getEmission() + f.multiply(depth > 2 ? (erand48(seed) < P ?
             radiance(reflectedRay, depth, seed) * RP : radiance(Ray(x, tDirection), depth, seed) * TP) :
             radiance(reflectedRay, depth, seed) * Re + radiance(Ray(x, tDirection), depth, seed) * Tr);
+}
+
+void Renderer::render() {
+    samplesPerPixel = samplesPerPixel / 4;
+    Ray camera(cameraPosition, cameraDirection.normalize());
+    Vector3 cx = Vector3(frameWidth * .5135 / frameHeight, 0, 0);
+    Vector3 r;
+    Vector3 cy = (cx % camera.getDirection()).normalize() * .5135;
+    Vector3 *c=new Vector3[frameWidth * frameHeight];
+    for (int y = 0; y < frameHeight; y++) {
+        fprintf(stderr, "\rRendering Scene %5.2f%%", 100. * y / (frameHeight - 1));
+        unsigned short seedY = (unsigned short) y * (unsigned short) y * (unsigned short) y;
+        for (unsigned short x = 0, seed[3] = {0, 0, seedY}; x < frameWidth; x++) {
+            for (int sy = 0, i = (frameHeight - y - 1) * frameWidth + x; sy < 2; sy++) {
+                for (int sx = 0; sx < 2; sx++, r=Vector3()) {
+                    for (int s = 0; s < samplesPerPixel; s++) {
+                        double r1 = 2 * erand48(seed);
+                        double dx = r1 < 1 ? sqrt(r1) - 1 : 1 - sqrt(2 - r1);
+                        double r2 = 2 * erand48(seed);
+                        double dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
+                        Vector3 d = cx * ( ( (sx + .5 + dx) / 2 + x) / frameWidth - .5) +
+                                cy * ( ( (sy + .5 + dy) / 2 + y) / frameHeight - .5) + camera.getDirection();
+                        r = r + radiance(
+                                Ray(camera.getOrigin() + d * 140, d.normalize()),0, seed
+                                ) * (1. / samplesPerPixel);
+                    }
+                    c[i] = c[i] + Vector3(clamp(r.getX()), clamp(r.getY()), clamp(r.getZ())) * .25;
+                }
+            }
+        }
+    }
+    FILE *f = fopen("image.ppm", "w");
+    fprintf(f, "P3\n%d %d\n%d\n", frameWidth, frameHeight, 255);
+    for (int i = 0; i < frameWidth * frameHeight; i++)
+        fprintf(f, "%d %d %d ", toInt(c[i].getX()), toInt(c[i].getY()), toInt(c[i].getZ()));
 }

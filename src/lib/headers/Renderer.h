@@ -13,6 +13,7 @@
 #include <vector>
 #include <cstdlib>
 #include <cmath>
+#include <string>
 
 
 class Renderer {
@@ -20,8 +21,15 @@ class Renderer {
 private:
 
     std::vector<Sphere> hittableObjects;
+    int frameWidth, frameHeight, samplesPerPixel;
+    Vector3 cameraPosition, cameraDirection;
 
 public:
+
+    Renderer(int, int, int);
+
+    void setCameraPosition(double, double, double);
+    void setCameraDirection(double, double, double);
 
     void addObject(Sphere hittableObject);
 
@@ -37,6 +45,8 @@ public:
     }
 
     Vector3 radiance(const Ray&, int, unsigned short *);
+
+    void render();
 
 };
 
