@@ -2,6 +2,7 @@
 // Created by 19sou on 02-04-2021.
 //
 
+#pragma omp parallel for schedule(dynamic, 1) private(r)       // OpenMP
 #include "Renderer.h"
 
 
@@ -92,7 +93,6 @@ void Renderer::render(bool enableProgressBar) {
         else
             fprintf(stderr, "\rProgress -> %5.2f%%", 100. * y / (frameHeight - 1));
         unsigned short seedY = (unsigned short) y * (unsigned short) y * (unsigned short) y;
-        #pragma omp parallel for schedule(dynamic, 1) private(r)
         for (unsigned short x = 0, seed[3] = {0, 0, seedY}; x < frameWidth; x++) {
             for (int sy = 0, i = (frameHeight - y - 1) * frameWidth + x; sy < 2; sy++) {
                 for (int sx = 0; sx < 2; sx++, r=Vector3()) {
