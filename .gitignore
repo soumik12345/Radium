@@ -1,5 +1,8 @@
 .idea/
 cmake-build-debug/
+**.ipynb_checkpoints**
 **DS_Store**
 dump/
 build/
+.vs/
+.vscode/
