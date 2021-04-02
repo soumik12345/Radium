@@ -39,3 +39,7 @@ Radium is a Ray Tracing Engine written in C++ that runs on the CPU on a single t
 **Code to generate the above demo:**
 
 ![](./assets/sample_code.svg)
+
+### 3 Spheres and before Sky (Rendered at 1000 Samples per Pixel)
+
+![](./assets/3_spheres_sky.png)
