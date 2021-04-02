@@ -24,6 +24,8 @@ Radium is a simple bare-bones Ray Tracing Engine written in C++ that runs on the
 
 - Make sure you have CMake installed for your system.
 
+- Edit `src/main.cpp`
+
 - `sh ./build_and_run.sh`
 
 - In order to run Radium on Google Colab, refer to [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/soumik12345/Radium/blob/monte_carlo/notebooks/Demo.ipynb).
@@ -33,3 +35,7 @@ Radium is a simple bare-bones Ray Tracing Engine written in C++ that runs on the
 ### Simple Cornell Box with a Specular and Refractive Sphere (Rendered at 1000 Samples per Pixel)
 
 ![](./assets/simple_cornell_box.png)
+
+**Code to generate the above demo:**
+
+![](./assets/sample_code.svg)
