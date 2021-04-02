@@ -1,6 +1,22 @@
 # Radium
 
-Radium is a simple bare-bones Ray Tracing Engine written in C++ that runs on the CPU. Frames rendered by Radium are saved in PPM format.
+Radium is a simple bare-bones Ray Tracing Engine written in C++ that runs on the CPU on a single thread. Frames rendered by Radium are saved in PPM format.
+
+## Features
+
+- Simple and easy-to-use API.
+
+- Global illumination using Unbiased Monte Carlo Path Tracing.
+
+- Soft shadows from Diffuse Light Sources.
+
+- Specular, Diffuse, and Refractive Materials are supported.
+
+- Total Internal Reflection for Refractive Materials.
+
+- Russian Roulette for path termination.
+
+**Note:** Radium has been tested on MacOS and Linux. Support for Windows is Experimental.
 
 ## Instructions
 
@@ -8,40 +24,18 @@ Radium is a simple bare-bones Ray Tracing Engine written in C++ that runs on the
 
 - Make sure you have CMake installed for your system.
 
+- Edit `src/main.cpp`
+
 - `sh ./build_and_run.sh`
+
+- In order to run Radium on Google Colab, refer to [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/soumik12345/Radium/blob/monte_carlo/notebooks/Demo.ipynb).
 
 ## Demos
 
-### Simple Diffuse Sphere
+### Simple Cornell Box with a Specular and Refractive Sphere (Rendered at 1000 Samples per Pixel)
 
-<table>
-    <thead>
-        <td>
-            Demo 1
-        </td>
-        <td>
-            Demo 2
-        </td>
-    </thead>
-    <tbody>
-        <td><img src="assets/image_11.png"></td>
-        <td><img src="assets/image_12.png"></td>
-    </tbody>
-</table>
+![](./assets/simple_cornell_box.png)
 
-### Accurate Rendering of Lambertian Sphere
+**Code to generate the above demo:**
 
-<table>
-    <thead>
-        <td>
-            Demo 1
-        </td>
-        <td>
-            Demo 2
-        </td>
-    </thead>
-    <tbody>
-        <td><img src="assets/image_13.png"></td>
-        <td><img src="assets/image_14.png"></td>
-    </tbody>
-</table>
+![](./assets/sample_code.svg)
