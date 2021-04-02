@@ -1,6 +1,6 @@
 # Radium
 
-Radium is a simple bare-bones Ray Tracing Engine written in C++ that runs on the CPU on a single thread. Frames rendered by Radium are saved in PPM format.
+Radium is a Ray Tracing Engine written in C++ that runs on the CPU on a single thread. Frames rendered by Radium are saved in PPM format.
 
 ## Features
 
