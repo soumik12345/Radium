@@ -6,7 +6,7 @@
 
 
 Renderer::Renderer(int frameWidth, int frameHeight, int samplesPerPixel):
-    frameWidth(frameWidth), frameHeight(frameHeight), samplesPerPixel(samplesPerPixel) {
+        frameWidth(frameWidth), frameHeight(frameHeight), samplesPerPixel(samplesPerPixel) {
 
     cameraPosition = Vector3();
     cameraDirection = Vector3();
@@ -73,8 +73,8 @@ Vector3 Renderer::radiance(const Ray &ray, int depth, unsigned short *seed) {
     double RP = Re / P;
     double TP = Tr / (1 - P);
     return hittableObject.getEmission() + f.multiply(depth > 2 ? (erand48(seed) < P ?
-            radiance(reflectedRay, depth, seed) * RP : radiance(Ray(x, tDirection), depth, seed) * TP) :
-            radiance(reflectedRay, depth, seed) * Re + radiance(Ray(x, tDirection), depth, seed) * Tr);
+                                                                  radiance(reflectedRay, depth, seed) * RP : radiance(Ray(x, tDirection), depth, seed) * TP) :
+                                                     radiance(reflectedRay, depth, seed) * Re + radiance(Ray(x, tDirection), depth, seed) * Tr);
 }
 
 void Renderer::render(bool enableProgressBar) {
@@ -86,6 +86,7 @@ void Renderer::render(bool enableProgressBar) {
     Vector3 *c=new Vector3[frameWidth * frameHeight];
     tqdm progressBar;
     printf("Rendering Scene...\n");
+#pragma omp parallel for schedule(dynamic, 1) private(r)
     for (int y = 0; y < frameHeight; y++) {
         if (enableProgressBar)
             progressBar.progress(frameHeight, frameHeight - y);
@@ -101,10 +102,10 @@ void Renderer::render(bool enableProgressBar) {
                         double r2 = 2 * erand48(seed);
                         double dy = r2 < 1 ? sqrt(r2) - 1 : 1 - sqrt(2 - r2);
                         Vector3 d = cx * ( ( (sx + .5 + dx) / 2 + x) / frameWidth - .5) +
-                                cy * ( ( (sy + .5 + dy) / 2 + y) / frameHeight - .5) + camera.getDirection();
+                                    cy * ( ( (sy + .5 + dy) / 2 + y) / frameHeight - .5) + camera.getDirection();
                         r = r + radiance(
                                 Ray(camera.getOrigin() + d * 140, d.normalize()),0, seed
-                                ) * (1. / samplesPerPixel);
+                        ) * (1. / samplesPerPixel);
                     }
                     c[i] = c[i] + Vector3(clamp(r.getX()), clamp(r.getY()), clamp(r.getZ())) * .25;
                 }
