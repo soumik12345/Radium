@@ -6,3 +6,4 @@ dump/
 build/
 .vs/
 .vscode/
+venv/
