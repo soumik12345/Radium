@@ -1,6 +1,8 @@
 clear
 rm -rf build
 
+source venv/bin/activate
+
 export OMP_STACKSIZE=1G
 
 mkdir build
@@ -26,6 +28,9 @@ if [ -f "$FILE" ]; then
     fi
     mv ./build/*.ppm ./dump
     printf "\n\n\n${GREEN}Compilation Successful!!!\n"
+    python plot_image.py
 else
     printf "\n\n\n${RED}Compilation Failure!!!\n"
 fi
+
+deactivate

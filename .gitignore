@@ -6,4 +6,4 @@ dump/
 build/
 .vs/
 .vscode/
-**ipynb**
+venv/

@@ -22,13 +22,15 @@ Radium is a Ray Tracing Engine written in C++ that runs on the CPU using shared-
 
 - `git clone --recursive https://github.com/soumik12345/Radium`
 
+- `sh ./install.sh` in order to install the python dependencies.
+
 - Make sure you have CMake installed for your system.
 
-- Edit `src/main.cpp`
+- Edit to include the engine code `src/main.cpp`.
 
 - `sh ./build_and_run.sh`
 
-- In order to run Radium on Google Colab, refer to [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/soumik12345/Radium/blob/monte_carlo/notebooks/Demo.ipynb).
+- In order to run Radium on Google Colab, refer to [![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/soumik12345/Radium/blob/monte_carlo/notebooks/Demo.ipynb)
 
 ## Demos
 
