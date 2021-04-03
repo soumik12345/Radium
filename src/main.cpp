@@ -3,7 +3,7 @@
 
 int main() {
 
-    Renderer renderer(1024, 768, 5000);
+    Renderer renderer(1024, 768, 40);
 
     renderer.setCameraPosition(50, 52, 295.6);
     renderer.setCameraDirection(0, -0.042612, -1);
@@ -28,6 +28,7 @@ int main() {
             Sphere(600, Vector3(50, 681.6 - .27, 81.6), Vector3(12, 12, 12), Vector3(), DIFFUSE));
 
     renderer.render(false);
+    renderer.export_scene("cornell_box_1.csv");
 
     return 0;
 }

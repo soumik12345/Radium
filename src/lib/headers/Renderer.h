@@ -47,6 +47,8 @@ public:
 
     Vector3 radiance(const Ray&, int, unsigned short *);
 
+    void export_scene(char*);
+
     void render(bool);
 
 };

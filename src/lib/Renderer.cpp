@@ -116,4 +116,22 @@ void Renderer::render(bool enableProgressBar) {
     fprintf(f, "P3\n%d %d\n%d\n", frameWidth, frameHeight, 255);
     for (int i = 0; i < frameWidth * frameHeight; i++)
         fprintf(f, "%d %d %d ", toInt(c[i].getX()), toInt(c[i].getY()), toInt(c[i].getZ()));
+    fclose(f);
+}
+
+void Renderer::export_scene(char * fileName) {
+    FILE *f = fopen(fileName, "w");
+    fprintf(f, "ObjectID, Radius, PositionX, PositionY, PositionZ, EmissionX, EmissionY, EmissionZ, ColorR, ColorG, ColorB, Material\n");
+    int objectID = 0;
+    for(Sphere& sphere : hittableObjects) {
+        fprintf(
+                f, "%d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d\n",
+                objectID, sphere.getRadius(),
+                sphere.getPosition().getX(), sphere.getPosition().getY(), sphere.getPosition().getZ(),
+                sphere.getEmission().getX(), sphere.getEmission().getY(), sphere.getEmission().getZ(),
+                sphere.getColor().getX(), sphere.getColor().getY(), sphere.getColor().getZ(), sphere.getMaterial());
+        objectID++;
+    }
+
+    fclose(f);
 }
