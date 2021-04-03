@@ -1,6 +1,8 @@
 clear
 rm -rf build
 
+export OMP_STACKSIZE=1G
+
 mkdir build
 cd build
 
