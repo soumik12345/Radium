@@ -119,25 +119,38 @@ void Renderer::render(bool enableProgressBar) {
     fclose(f);
 }
 
-void Renderer::export_scene(char * fileName) {
-    FILE *f = fopen(fileName, "w");
-    fprintf(f, "ObjectID, Radius, PositionX, PositionY, PositionZ, EmissionX, EmissionY, EmissionZ, ColorR, ColorG, ColorB, Material\n");
+void Renderer::exportWorld(char *worldFileName) {
+    FILE *worldFile = fopen(worldFileName, "w");
+    fprintf(
+            worldFile,
+            "ObjectID, Radius, PositionX, PositionY, PositionZ, EmissionX, EmissionY, EmissionZ, ColorR, ColorG, ColorB, Material\n");
     int objectID = 0;
     for(Sphere& sphere : hittableObjects) {
         fprintf(
-                f, "%d, %f, %f, %f, %f, %f, %f, %f, %f, %f, %f, %d\n",
+                worldFile, "%d, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %d\n",
                 objectID, sphere.getRadius(),
                 sphere.getPosition().getX(), sphere.getPosition().getY(), sphere.getPosition().getZ(),
                 sphere.getEmission().getX(), sphere.getEmission().getY(), sphere.getEmission().getZ(),
                 sphere.getColor().getX(), sphere.getColor().getY(), sphere.getColor().getZ(), sphere.getMaterial());
         objectID++;
     }
-
-    fclose(f);
+    fclose(worldFile);
 }
 
-void Renderer::import_scene(std::string fileName) {
-    std::ifstream infile(fileName);
+void Renderer::exportCamera(char *cameraFileName) {
+    FILE *cameraFile = fopen(cameraFileName, "w");
+    fprintf(
+            cameraFile,
+            "PositionX, PositionY, PositionZ, DirectionX, DirectionY, DirectionZ\n");
+    fprintf(
+            cameraFile, "%lf %lf %lf %lf %lf %lf\n",
+            cameraPosition.getX(), cameraPosition.getY(), cameraPosition.getZ(),
+            cameraDirection.getX(), cameraDirection.getY(), cameraDirection.getZ());
+    fclose(cameraFile);
+}
+
+void Renderer::importWorld(std::string worldFileName) {
+    std::ifstream infile(worldFileName);
     std::string line;
     int count = 0;
     while (std::getline(infile, line)) {

@@ -50,9 +50,11 @@ public:
 
     Vector3 radiance(const Ray&, int, unsigned short *);
 
-    void import_scene(std::string fileName);
+    void exportWorld(char* worldFileName);
 
-    void export_scene(char* fileName);
+    void exportCamera(char* cameraFileName);
+
+    void importWorld(std::string worldFileName);
 
     void render(bool);
 

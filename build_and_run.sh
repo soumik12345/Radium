@@ -27,7 +27,8 @@ if [ -f "$FILE" ]; then
         mkdir ./dump
     fi
     mv ./build/*.ppm ./dump
-    mv ./build/*.csv ./scenes
+    mv ./build/*world.csv ./scenes/worlds
+    mv ./build/*camera.csv ./scenes/cameras
     printf "\n\n\n${GREEN}Compilation Successful!!!\n"
     python plot_image.py
 else
