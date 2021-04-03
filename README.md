@@ -34,10 +34,9 @@ Radium is a Ray Tracing Engine written in C++ that runs on the CPU using shared-
 
 ### Simple Cornell Box with a Specular and Refractive Sphere
 
-<figure class="image">
-  <img src="./assets/simple_cornell_box.png">
-  <figcaption>Rendered at 5000 samples per pixel on Intel Core i5 8th Gen</figcaption>
-</figure>
+![](./assets/simple_cornell_box.png)
+
+Rendered at 5000 samples per pixel on Intel Core i5 8th Gen
 
 
 ### 3 Spheres and before Sky (Rendered at 1000 Samples per Pixel)
