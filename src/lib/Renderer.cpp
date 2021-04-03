@@ -143,7 +143,7 @@ void Renderer::exportCamera(char *cameraFileName) {
             cameraFile,
             "PositionX, PositionY, PositionZ, DirectionX, DirectionY, DirectionZ\n");
     fprintf(
-            cameraFile, "%lf %lf %lf %lf %lf %lf\n",
+            cameraFile, "%lf, %lf, %lf, %lf, %lf, %lf\n",
             cameraPosition.getX(), cameraPosition.getY(), cameraPosition.getZ(),
             cameraDirection.getX(), cameraDirection.getY(), cameraDirection.getZ());
     fclose(cameraFile);
@@ -180,5 +180,31 @@ void Renderer::importWorld(std::string worldFileName) {
             addObject(sphere);
         }
         count++;
+    }
+}
+
+void Renderer::importCamera(std::string cameraFileName) {
+    std::ifstream infile(cameraFileName);
+    std::string line;
+    int count = 0;
+    std::getline(infile, line);
+    while (std::getline(infile, line)) {
+        std::stringstream ss(line);
+        std::vector<std::string> temp;
+        while (ss.good()) {
+            std::string substr;
+            std::getline(ss, substr, ',');
+            temp.push_back(substr);
+            std::cout << substr << " ";
+        }
+        setCameraPosition(
+                std::stod(temp.at(0)),
+                std::stod(temp.at(1)),
+                std::stod(temp.at(2)));
+        setCameraDirection(
+                std::stod(temp.at(3)),
+                std::stod(temp.at(4)),
+                std::stod(temp.at(5)));
+        std::cout << std::endl;
     }
 }
