@@ -116,4 +116,95 @@ void Renderer::render(bool enableProgressBar) {
     fprintf(f, "P3\n%d %d\n%d\n", frameWidth, frameHeight, 255);
     for (int i = 0; i < frameWidth * frameHeight; i++)
         fprintf(f, "%d %d %d ", toInt(c[i].getX()), toInt(c[i].getY()), toInt(c[i].getZ()));
+    fclose(f);
+}
+
+void Renderer::exportWorld(char *worldFileName) {
+    FILE *worldFile = fopen(worldFileName, "w");
+    fprintf(
+            worldFile,
+            "ObjectID, Radius, PositionX, PositionY, PositionZ, EmissionX, EmissionY, EmissionZ, ColorR, ColorG, ColorB, Material\n");
+    int objectID = 0;
+    for(Sphere& sphere : hittableObjects) {
+        fprintf(
+                worldFile, "%d, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %lf, %d\n",
+                objectID, sphere.getRadius(),
+                sphere.getPosition().getX(), sphere.getPosition().getY(), sphere.getPosition().getZ(),
+                sphere.getEmission().getX(), sphere.getEmission().getY(), sphere.getEmission().getZ(),
+                sphere.getColor().getX(), sphere.getColor().getY(), sphere.getColor().getZ(), sphere.getMaterial());
+        objectID++;
+    }
+    fclose(worldFile);
+}
+
+void Renderer::exportCamera(char *cameraFileName) {
+    FILE *cameraFile = fopen(cameraFileName, "w");
+    fprintf(
+            cameraFile,
+            "PositionX, PositionY, PositionZ, DirectionX, DirectionY, DirectionZ\n");
+    fprintf(
+            cameraFile, "%lf, %lf, %lf, %lf, %lf, %lf\n",
+            cameraPosition.getX(), cameraPosition.getY(), cameraPosition.getZ(),
+            cameraDirection.getX(), cameraDirection.getY(), cameraDirection.getZ());
+    fclose(cameraFile);
+}
+
+void Renderer::importWorld(std::string worldFileName) {
+    std::ifstream infile(worldFileName);
+    std::string line;
+    int count = 0;
+    while (std::getline(infile, line)) {
+        std::stringstream ss(line);
+        std::vector<std::string> temp;
+        if (count > 0) {
+            while (ss.good()) {
+                std::string substr;
+                std::getline(ss, substr, ',');
+                temp.push_back(substr);
+            }
+            Sphere sphere(
+                    std::stod(temp.at(1)),
+                    Vector3(
+                            std::stod(temp.at(2)),
+                            std::stod(temp.at(3)),
+                            std::stod(temp.at(4))),
+                    Vector3(
+                            std::stod(temp.at(5)),
+                            std::stod(temp.at(6)),
+                            std::stod(temp.at(7))),
+                    Vector3(
+                            std::stod(temp.at(8)),
+                            std::stod(temp.at(9)),
+                            std::stod(temp.at(10))),
+                    static_cast<SurfaceReflectionType>(std::stoi(temp.at(11))));
+            addObject(sphere);
+        }
+        count++;
+    }
+}
+
+void Renderer::importCamera(std::string cameraFileName) {
+    std::ifstream infile(cameraFileName);
+    std::string line;
+    int count = 0;
+    std::getline(infile, line);
+    while (std::getline(infile, line)) {
+        std::stringstream ss(line);
+        std::vector<std::string> temp;
+        while (ss.good()) {
+            std::string substr;
+            std::getline(ss, substr, ',');
+            temp.push_back(substr);
+            std::cout << substr << " ";
+        }
+        setCameraPosition(
+                std::stod(temp.at(0)),
+                std::stod(temp.at(1)),
+                std::stod(temp.at(2)));
+        setCameraDirection(
+                std::stod(temp.at(3)),
+                std::stod(temp.at(4)),
+                std::stod(temp.at(5)));
+        std::cout << std::endl;
+    }
 }
