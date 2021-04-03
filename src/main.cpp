@@ -8,6 +8,8 @@ int main() {
     renderer.setCameraPosition(50, 52, 295.6);
     renderer.setCameraDirection(0, -0.042612, -1);
 
+//    renderer.import_scene("../scenes/cornell_box_1.csv");
+
     renderer.addObject(
             Sphere(1e5, Vector3(1e5 + 1, 40.8, 81.6), Vector3(), Vector3(.75, .25, .25), DIFFUSE));
     renderer.addObject(

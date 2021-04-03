@@ -135,3 +135,37 @@ void Renderer::export_scene(char * fileName) {
 
     fclose(f);
 }
+
+void Renderer::import_scene(std::string fileName) {
+    std::ifstream infile(fileName);
+    std::string line;
+    int count = 0;
+    while (std::getline(infile, line)) {
+        std::stringstream ss(line);
+        std::vector<std::string> temp;
+        if (count > 0) {
+            while (ss.good()) {
+                std::string substr;
+                std::getline(ss, substr, ',');
+                temp.push_back(substr);
+            }
+            Sphere sphere(
+                    std::stod(temp.at(1)),
+                    Vector3(
+                            std::stod(temp.at(2)),
+                            std::stod(temp.at(3)),
+                            std::stod(temp.at(4))),
+                    Vector3(
+                            std::stod(temp.at(5)),
+                            std::stod(temp.at(6)),
+                            std::stod(temp.at(7))),
+                    Vector3(
+                            std::stod(temp.at(8)),
+                            std::stod(temp.at(9)),
+                            std::stod(temp.at(10))),
+                    static_cast<SurfaceReflectionType>(std::stoi(temp.at(11))));
+            addObject(sphere);
+        }
+        count++;
+    }
+}

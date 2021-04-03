@@ -15,7 +15,10 @@
 #include <cstdlib>
 #include <cmath>
 #include <string>
-
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <cstring>
 
 class Renderer {
 
@@ -47,7 +50,9 @@ public:
 
     Vector3 radiance(const Ray&, int, unsigned short *);
 
-    void export_scene(char*);
+    void import_scene(std::string fileName);
+
+    void export_scene(char* fileName);
 
     void render(bool);
 
