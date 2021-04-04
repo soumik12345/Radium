@@ -46,6 +46,14 @@ Rendered at 5000 samples per pixel and took 100 minutes to render on Intel Core 
 
 Rendered at 5000 samples per pixel and took 91 minutes to render on Intel Core i5 8th Gen.
 
+### Demo 2
+
 ![](./assets/demo_2.png)
 
-Rendered at 40 samples per pixel and took 2 minutes 25 seconds to render on Intel Core i5 8th Gen.
+Rendered at 40 samples per pixel and took 2 minutes and 25 seconds to render on Intel Core i5 8th Gen.
+
+### Demo 3
+
+![](./assets/demo_3.png)
+
+Rendered at 200 samples per pixel and took 4 minutes and 15 seconds to render on Intel Core i5 8th Gen.
