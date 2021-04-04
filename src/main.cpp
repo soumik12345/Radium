@@ -5,15 +5,16 @@ int main() {
 
     Renderer renderer(1024, 768, 8);
 
-    renderer.setCameraPosition(50, 50, 295.6);
-    renderer.setCameraDirection(0, -0.042612, -1);
+//    renderer.setCameraPosition(50, 50, 295.6);
+//    renderer.setCameraDirection(0, -0.042612, -1);
 
-    renderer.importCamera("../scenes/cameras/demo_3_camera.csv");
-    renderer.importWorld("../scenes/worlds/demo_3_world.csv");
+    renderer.importCamera("../scenes/cameras/demo_4_camera.csv");
+    renderer.importWorld("../scenes/worlds/demo_4_world.csv");
 
     renderer.render(false);
-//    renderer.exportWorld("demo_3_world.csv");
-//    renderer.exportCamera("demo_3_camera.csv");
+
+//    renderer.exportWorld("demo_4_world.csv");
+//    renderer.exportCamera("demo_4_camera.csv");
 
     return 0;
 }
