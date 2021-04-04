@@ -38,10 +38,14 @@ Radium is a Ray Tracing Engine written in C++ that runs on the CPU using shared-
 
 ![](./assets/simple_cornell_box.png)
 
-Rendered at 5000 samples per pixel and tool 100 minutes to render on Intel Core i5 8th Gen.
+Rendered at 5000 samples per pixel and took 100 minutes to render on Intel Core i5 8th Gen.
 
 ### Demo 1
 
 ![](./assets/demo_1.png)
 
-Rendered at 5000 samples per pixel and tool 91 minutes to render on Intel Core i5 8th Gen.
+Rendered at 5000 samples per pixel and took 91 minutes to render on Intel Core i5 8th Gen.
+
+![](./assets/demo_2.png)
+
+Rendered at 40 samples per pixel and took 2 minutes 25 seconds to render on Intel Core i5 8th Gen.
