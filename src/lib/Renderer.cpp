@@ -195,7 +195,6 @@ void Renderer::importCamera(std::string cameraFileName) {
             std::string substr;
             std::getline(ss, substr, ',');
             temp.push_back(substr);
-            std::cout << substr << " ";
         }
         setCameraPosition(
                 std::stod(temp.at(0)),
@@ -205,6 +204,5 @@ void Renderer::importCamera(std::string cameraFileName) {
                 std::stod(temp.at(3)),
                 std::stod(temp.at(4)),
                 std::stod(temp.at(5)));
-        std::cout << std::endl;
     }
 }

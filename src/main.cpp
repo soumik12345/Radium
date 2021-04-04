@@ -3,7 +3,7 @@
 
 int main() {
 
-    Renderer renderer(1024, 768, 16);
+    Renderer renderer(1024, 768, 5000);
 
     renderer.setCameraPosition(50, 50, 295.6);
     renderer.setCameraDirection(0, -0.042612, -1);
