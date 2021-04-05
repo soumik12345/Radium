@@ -30,7 +30,7 @@ if [ -f "$FILE" ]; then
     mv ./build/*world.csv ./scenes/worlds
     mv ./build/*camera.csv ./scenes/cameras
     printf "\n\n\n${GREEN}Compilation Successful!!!\n"
-    python plot_image.py
+    python3 plot_image.py
 else
     printf "\n\n\n${RED}Compilation Failure!!!\n"
 fi
