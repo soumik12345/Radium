@@ -3,12 +3,11 @@ from PIL import Image
 from matplotlib import pyplot as plt
 
 
-image = Image.fromarray(
-    cv2.cvtColor(
-        cv2.imread('./dump/image.ppm'), cv2.COLOR_BGR2RGB
-    )
+image = cv2.cvtColor(
+    cv2.imread('./dump/image.ppm'),
+    cv2.COLOR_BGR2RGB
 )
-
+image = Image.fromarray(image)
 image.save('./dump/image.png')
 print('Image saved as ./dump/image.png')
 

@@ -15,7 +15,10 @@
 #include <cstdlib>
 #include <cmath>
 #include <string>
-
+#include <iostream>
+#include <fstream>
+#include <sstream>
+#include <cstring>
 
 class Renderer {
 
@@ -46,6 +49,12 @@ public:
     }
 
     Vector3 radiance(const Ray&, int, unsigned short *);
+
+    void exportWorld(char* worldFileName);
+    void exportCamera(char* cameraFileName);
+
+    void importWorld(std::string worldFileName);
+    void importCamera(std::string cameraFileName);
 
     void render(bool);
 

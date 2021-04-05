@@ -11,6 +11,6 @@ find_package(OpenMP)
 add_executable(radium ${source_files} src/main.cpp)
 
 if(OpenMP_CXX_FOUND)
-    target_link_libraries(radium PUBLIC OpenMP::OpenMP_CXX)
     message("OpenMP Found")
+    target_link_libraries(radium PUBLIC OpenMP::OpenMP_CXX)
 endif()
