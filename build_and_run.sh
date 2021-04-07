@@ -1,15 +1,15 @@
 clear
 rm -rf build
 
-source venv/bin/activate
-
-export OMP_STACKSIZE=1G
+if [ $COLAB_GPU -ne 1 ]; then
+  source venv/bin/activate
+fi
 
 mkdir build
 cd build
 
-cmake ../
-make CC="time g++"
+CUDACXX=/usr/local/cuda-${1}/bin/nvcc cmake ../
+make
 
 FILE=./radium
 RED='\033[0;31m'
@@ -48,10 +48,15 @@ if [ -f "$FILE" ]; then
     fi
 
     printf "\n\n\n${GREEN}Compilation Successful!!!\n"
-    python3 plot_image.py
+    
+    if compgen -G "./dump/*.ppm" > /dev/null; then
+      python3 plot_image.py
+    fi
 
 else
     printf "\n\n\n${RED}Compilation Failure!!!\n"
 fi
 
-deactivate
+if [ $COLAB_GPU -ne 1 ]; then
+  deactivate
+fi
