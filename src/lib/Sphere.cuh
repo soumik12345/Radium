@@ -3,6 +3,7 @@
 
 #include "Ray.h"
 #include "Utils/DotProduct.cuh"
+#include "Utils/Addition.cuh"
 
 
 class Sphere {
