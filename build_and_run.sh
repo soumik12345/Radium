@@ -19,7 +19,7 @@ NC='\033[0m' # No Color
 if [ -f "$FILE" ]; then
 
     clear
-    ./radium
+    time ./radium
     cd ../
 
     DIRECTORY=./dump

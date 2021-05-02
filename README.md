@@ -23,7 +23,7 @@ CPU using shared-memory multiprocessing.
 
 - `git clone --recursive https://github.com/soumik12345/Radium`
 
-- `sh ./install.sh` in order to install the python dependencies.
+- `sh ./install.sh linux` in order to install the python dependencies. For MacOs, use argument `mac`.
 
 - Make sure you have CMake installed for your system.
 
